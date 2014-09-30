@@ -17,3 +17,50 @@ You need a Stripe API key for using this plugin, which you can obtain from [Stri
     cordova plugin add url —variable API_KEY="YOUR_API_KEY"
 
 ## Methods
+
+### Customers
+
+- stripe.customers.create
+- stripe.customers.retrieve
+- stripe.customers.list
+- stripe.customers.remove
+- stripe.customers.createCard
+- stripe.customers.retrieveCard
+- stripe.customers.removeCard
+
+### Charges
+
+- stripe.charges.create
+- stripe.charges.list
+- stripe.charges.retrieve
+- stripe.charges.update
+- stripe.charges.refund
+
+
+### Transfers
+
+- stripe.transfers.create
+- stripe.transfers.list
+- stripe.transfers.retrieve
+- stripe.transfers.update
+- stripe.transfers.cancel
+
+
+### Recipients
+
+- stripe.recipients.create
+- stripe.recipients.list
+- stripe.recipients.retrieve
+- stripe.recipients.update
+- stripe.recipients.remove
+
+
+## Supported Platforms
+
+- iOS
+- Android
+
+
+## Resources
+
+For more information, please refer to the [Stripe Documentation](https://stripe.com/docs/api) about the API methods.

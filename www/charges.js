@@ -25,10 +25,6 @@ Charges.prototype.list = function(successCallback){
   this.processRequest(["GET","charges", null], successCallback);
 }
 
-Charges.prototype.refund = function(id, successCallback){
-  this.processRequest(["GET","charges/" + id + "/refunds", null], successCallback);
-}
-
 if (typeof module != 'undefined' && module.exports) {
   module.exports = new Charges();
 }

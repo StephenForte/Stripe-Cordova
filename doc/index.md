@@ -63,4 +63,4 @@ You need a Stripe API key for using this plugin, which you can obtain from [Stri
 
 ## Resources
 
-For more information, please refer to the [Stripe Documentation](https://stripe.com/docs/api) about the API methods.
+For more information, please refer to the [Stripe Documentation](https://stripe.com/docs/api) for most up-to-date information on API parameters

@@ -183,6 +183,8 @@ Retrieves the details of a charge that has previously been created. Supply the u
 
 Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
 
+## Example
+
     stripe.charges.list({
         limit : 3
     },function(result){

@@ -18,10 +18,6 @@ You need a Stripe API key for using this plugin, which you can obtain from [Stri
 
 ## Methods
 
-### Customers
-
-Customer objects allow you to perform recurring charges and track multiple charges that are associated with the same customer. The API allows you to create, delete, and update your customers. You can retrieve individual customers as well as a list of all your customers.
-
 - stripe.customers.create
 - stripe.customers.retrieve
 - stripe.customers.list
@@ -30,23 +26,16 @@ Customer objects allow you to perform recurring charges and track multiple charg
 - stripe.customers.retrieveCard
 - stripe.customers.removeCard
 
-### Charges
-
 - stripe.charges.create
 - stripe.charges.retrieve
 - stripe.charges.list
 - stripe.charges.update
-
-### Transfers
 
 - stripe.transfers.create
 - stripe.transfers.list
 - stripe.transfers.retrieve
 - stripe.transfers.update
 - stripe.transfers.cancel
-
-
-### Recipients
 
 - stripe.recipients.create
 - stripe.recipients.list
@@ -61,12 +50,12 @@ Creates a new customer object.
 
 ## Example
 
-    stripe.customers.create({
-        description : "Jon Doe",
-        email :  "jon@telerik.com"
-    }, function(result){
-        // Result contains error or customer object
-    });
+      stripe.customers.create({
+          description : "Jon Doe",
+          email :  "jon@telerik.com"
+      }, function(result){
+          // Result contains error or customer object
+      });
 
 
 # stripe.customers.retrieve
@@ -76,9 +65,9 @@ Retrieves the details of an existing customer. You need only supply the unique c
 
 ## Example
 
-  stripe.customers.retrieve("cus_4sF3AyFe5RqNZk", function(customer){
-      // TODO: Your logic
-  });
+    stripe.customers.retrieve("cus_4sF3AyFe5RqNZk", function(customer){
+        // TODO: Your logic
+    });
 
 
 # stripe.customers.list
@@ -87,11 +76,11 @@ Returns a list of your customers. The customers are returned sorted by creation 
 
 ## Example
 
-  stripe.customers.list({
-      limit : 1
-  }, function(result){
-       // asynchronously called
-  });
+    stripe.customers.list({
+        limit : 1
+    }, function(result){
+         // asynchronously called
+    });
 
 
 # stripe.customers.remove
@@ -100,12 +89,12 @@ Permanently deletes a customer. It cannot be undone. Also immediately cancels an
 
 ## Example
 
-  stripe.customers.remove("cus_4sF3AyFe5RqNZk", function(result){
-       // asynchronously called
-       if (result.deleted){
-         // TODO : Your logic.
-       }
-  });
+    stripe.customers.remove("cus_4sF3AyFe5RqNZk", function(result){
+         // asynchronously called
+         if (result.deleted){
+           // TODO : Your logic.
+         }
+    });
 
 
 # stripe.customers.createCard
@@ -114,18 +103,18 @@ Creating a new credit card will not change the card owner's existing default cre
 
 ## Example
 
-  stripe.customers.createCard("cus_4sF3AyFe5RqNZk",{
-      card : {
-         number : "4242424242424242",
-         exp_month : '08',
-         exp_year : '17',
-         cvc : '111',
-         name : 'Jon Doe'
-      }
-    },
-    function(result){
-       // asynchronously called
-    });
+    stripe.customers.createCard("cus_4sF3AyFe5RqNZk",{
+        card : {
+           number : "4242424242424242",
+           exp_month : '08',
+           exp_year : '17',
+           cvc : '111',
+           name : 'Jon Doe'
+        }
+      },
+      function(result){
+         // asynchronously called
+      });
 
 
 # stripe.customers.retrieveCard
@@ -134,12 +123,12 @@ By default, you can see the 10 most recent cards stored on a customer or recipie
 
 ## Example
 
-  stripe.customers.retrieveCard(
-    "cus_4sF3AyFe5RqNZk",
-    "card_14iFBp2aMqOhtEaUWEDfI3Dg",
-    function(result){
-       // asynchronously called
-    });
+    stripe.customers.retrieveCard(
+      "cus_4sF3AyFe5RqNZk",
+      "card_14iFBp2aMqOhtEaUWEDfI3Dg",
+      function(result){
+         // asynchronously called
+      });
 
 
 # stripe.customers.removeCard
@@ -151,12 +140,12 @@ Note that for cards belonging to customers, you may want to prevent customers on
 
 ## Example
 
-  stripe.customers.removeCard(
-    "cus_4sF3AyFe5RqNZk",
-    "card_14iFBp2aMqOhtEaUWEDfI3Dg",
-    function(result){
-       // asynchronously called
-    });
+    stripe.customers.removeCard(
+      "cus_4sF3AyFe5RqNZk",
+      "card_14iFBp2aMqOhtEaUWEDfI3Dg",
+      function(result){
+         // asynchronously called
+      });
 
 
 # stripe.charges.create
@@ -165,21 +154,21 @@ To charge a credit or a debit card, you create a new charge object. You can retr
 
 ## Example
 
-  stripe.charges.create({
-      amount : 400,
-      currency : 'usd',
-      card : {
-        number : "4242424242424242",
-        exp_month : '08',
-        exp_year : '17',
-        cvc : '111',
-        name : 'Jon Doe'
+    stripe.charges.create({
+        amount : 400,
+        currency : 'usd',
+        card : {
+          number : "4242424242424242",
+          exp_month : '08',
+          exp_year : '17',
+          cvc : '111',
+          name : 'Jon Doe'
+        },
+        description : "Stripe Test Trasnfer"
       },
-      description : "Stripe Test Trasnfer"
-    },
-    function(result){
-       // asynchronously called
-    });
+      function(result){
+         // asynchronously called
+      });
 
 # stripe.charges.retrieve
 
@@ -187,21 +176,21 @@ Retrieves the details of a charge that has previously been created. Supply the u
 
 ## Example
 
-  stripe.charges.retrieve(
-    "ch_14iFBp2aMqOhtEaUftfHNnmN",
-    function(result){
-       // asynchronously called
-    });
+    stripe.charges.retrieve(
+      "ch_14iFBp2aMqOhtEaUftfHNnmN",
+      function(result){
+         // asynchronously called
+      });
 
 # stripe.charges.list
 
 Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
 
-  stripe.charges.list({
-      limit : 3
-  },function(result){
-      // asynchronously called
-  });
+    stripe.charges.list({
+        limit : 3
+    },function(result){
+        // asynchronously called
+    });
 
 
 # stripe.charges.update
@@ -212,11 +201,11 @@ This request accepts only the description and metadata as arguments.
 
 ## Example
 
-  stripe.charges.update("ch_14iFBp2aMqOhtEaUftfHNnmN", {
-      description: "Charge for test@example.com"
-  },function(result){
-      // asynchronously called
-  });
+    stripe.charges.update("ch_14iFBp2aMqOhtEaUftfHNnmN", {
+        description: "Charge for test@example.com"
+    },function(result){
+        // asynchronously called
+    });
 
 
 # stripe.transfers.create
@@ -227,14 +216,14 @@ Currently, only US accounts can create transfers.
 
 ## Example
 
-  stripe.transfers.create({
-    amount: 400,
-    currency: "usd",
-    recipient: "rp_14gu4C2aMqOhtEaUf64QIvMZ",
-    description: "Transfer for test@example.com"
-  }, function(transfer) {
-    // asynchronously called
-  });
+    stripe.transfers.create({
+      amount: 400,
+      currency: "usd",
+      recipient: "rp_14gu4C2aMqOhtEaUf64QIvMZ",
+      description: "Transfer for test@example.com"
+    }, function(transfer) {
+      // asynchronously called
+    });
 
 
 # stripe.transfers.list
@@ -244,11 +233,11 @@ Returns a list of existing transfers sent to third-party bank accounts or that S
 
 ## Example
 
-  stripe.transfers.list({
-    limit: 3
-  }, function(err, transfers) {
-    // asynchronously called
-  });
+    stripe.transfers.list({
+      limit: 3
+    }, function(err, transfers) {
+      // asynchronously called
+    });
 
 
 # stripe.transfers.retrieve
@@ -257,9 +246,9 @@ Retrieves the details of an existing transfer. Supply the unique transfer ID fro
 
 ## Example
 
-  stripe.transfers.retrieve("tr_14iFBq2aMqOhtEaUFN60ASOn", function(transfer) {
-    // asynchronously called
-  });
+    stripe.transfers.retrieve("tr_14iFBq2aMqOhtEaUFN60ASOn", function(transfer) {
+      // asynchronously called
+    });
 
 
 # stripe.transfers.update
@@ -269,15 +258,15 @@ Updates the specified transfer by setting the values of the parameters passed. A
 
 ## Example
 
-  stripe.transfers.update(
-    "ch_14iFBp2aMqOhtEaUftfHNnmN",
-    {
-      description: "Transfer for test@example.com"
-    },
-    function(transfer) {
-      // asynchronously called
-    }
-  );
+    stripe.transfers.update(
+      "ch_14iFBp2aMqOhtEaUftfHNnmN",
+      {
+        description: "Transfer for test@example.com"
+      },
+      function(transfer) {
+        // asynchronously called
+      }
+    );
 
 
 # stripe.transfers.cancel
@@ -286,9 +275,9 @@ Cancels a transfer that has previously been created. Funds will be refunded to y
 
 ## Example
 
-  stripe.transfers.cancel("tr_14iFBq2aMqOhtEaUFN60ASOn", function(transfer) {
-    // asynchronously called
-  });
+    stripe.transfers.cancel("tr_14iFBq2aMqOhtEaUFN60ASOn", function(transfer) {
+      // asynchronously called
+    });
 
 
 # stripe.recipients.create
@@ -297,12 +286,12 @@ Creates a new recipient object and verifies both the recipient's identity and, i
 
 ## Example
 
-  stripe.recipients.create({
-    name: "John Doe",
-    type: "individual"
-  }, function(recipient) {
-    // asynchronously called
-  });
+    stripe.recipients.create({
+      name: "John Doe",
+      type: "individual"
+    }, function(recipient) {
+      // asynchronously called
+    });
 
 
 # stripe.recipients.list
@@ -311,9 +300,9 @@ Returns a list of your recipients. The recipients are returned sorted by creatio
 
 ## Example
 
-  stripe.recipients.list(function(recipients) {
-    // asynchronously called
-  });
+    stripe.recipients.list(function(recipients) {
+      // asynchronously called
+    });
 
 
 # stripe.recipients.retrieve
@@ -323,9 +312,9 @@ Retrieves the details of an existing recipient. You need only supply the unique 
 
 ## Example
 
-  stripe.recipients.retrieve("rp_14gu4C2aMqOhtEaUf64QIvMZ", function(recipient) {
-    // asynchronously called
-  });
+    stripe.recipients.retrieve("rp_14gu4C2aMqOhtEaUf64QIvMZ", function(recipient) {
+      // asynchronously called
+    });
 
 
 # stripe.recipients.update
@@ -336,12 +325,12 @@ If you update the name or tax ID, the identity verification will automatically b
 
 ## Example
 
-  stripe.recipients.update(
-    "rp_14gu4C2aMqOhtEaUf64QIvMZ",
-    { description: "Recipient for test@example.com" },
-    function(recipient) {
-      // asynchronously called
-    });
+    stripe.recipients.update(
+      "rp_14gu4C2aMqOhtEaUf64QIvMZ",
+      { description: "Recipient for test@example.com" },
+      function(recipient) {
+        // asynchronously called
+      });
 
 # stripe.recipients.remove
 
@@ -349,15 +338,15 @@ Permanently deletes a recipient. It cannot be undone.
 
 ## Example
 
-  stripe.recipients.remove(
-    "rp_14gu4C2aMqOhtEaUf64QIvMZ",
-    function(result) {
-      // asynchronously called
-      if (result.deleted){
-         // TODO : Your Logic
+    stripe.recipients.remove(
+      "rp_14gu4C2aMqOhtEaUf64QIvMZ",
+      function(result) {
+        // asynchronously called
+        if (result.deleted){
+           // TODO : Your Logic
+        }
       }
-    }
-  );
+    );
 
 ## Supported Platforms
 

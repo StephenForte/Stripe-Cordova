@@ -48,6 +48,8 @@
             url = [NSURL URLWithString:absoluteURLWithParams];
             request = [NSMutableURLRequest requestWithURL:url];
         }
+    } else {
+      request = [NSMutableURLRequest requestWithURL:url];
     }
 
 

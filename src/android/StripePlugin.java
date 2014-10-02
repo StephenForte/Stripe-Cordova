@@ -57,7 +57,7 @@ public class StripePlugin extends CordovaPlugin {
 
     final HttpRequestBase httpRequest;
 
-    JSONObject jsonObject = args.getJSONObject(2);
+    JSONObject jsonObject = args.isNull(2) ? null : args.getJSONObject(2);
     if (method.equals("POST")) {
       httpRequest = new HttpPost(url);
       try {
@@ -119,6 +119,10 @@ public class StripePlugin extends CordovaPlugin {
   }
 
   private static void normalizeToNameValues(String root, List<NameValuePair> nameValuePairs, JSONObject jsonObject) throws JSONException {
+
+    if (jsonObject == null) {
+      return;
+    }
 
     @SuppressWarnings("unchecked")
     Iterator<String> iterator = jsonObject.keys();

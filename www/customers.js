@@ -16,6 +16,10 @@ Customers.prototype.retrieve = function(id, successCallback){
     this.processRequest(["GET","customers/" + id, null], successCallback);
 }
 
+Customers.prototype.update = function(id, arg, successCallback){
+    this.processRequest(["POST","customers/" + id, arg], successCallback);
+}
+
 Customers.prototype.list = function(arg, successCallback){
     if (typeof(arg) !== "function"){
       this.processRequest(["GET","customers", arg], successCallback);

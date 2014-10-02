@@ -19,21 +19,30 @@ You need a Stripe API key for using this plugin, which you can obtain from [Stri
 ## Methods
 
 - stripe.customers.create
-- stripe.customers.retrieve
 - stripe.customers.list
+- stripe.customers.retrieve
+- stripe.customers.update
 - stripe.customers.remove
+
+
 - stripe.customers.createCard
 - stripe.customers.retrieveCard
 - stripe.customers.removeCard
+
+
 - stripe.charges.create
 - stripe.charges.retrieve
 - stripe.charges.list
 - stripe.charges.update
+
+
 - stripe.transfers.create
 - stripe.transfers.list
 - stripe.transfers.retrieve
 - stripe.transfers.update
 - stripe.transfers.cancel
+
+
 - stripe.recipients.create
 - stripe.recipients.list
 - stripe.recipients.retrieve

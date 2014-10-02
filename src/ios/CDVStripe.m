@@ -21,6 +21,7 @@
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
         }
         else{
+            // TODO: the JS API doesn't support an errorcallback, so this is not received by the app!
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageToErrorObject:[NSNumber numberWithLong:error.code].intValue];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -32,7 +33,25 @@
 
 - (void)sendAsynchronousRequest:(NSURL*)url method:(NSString*)method dictionary:(NSDictionary*)dictionary block:(void (^)(NSDictionary * result, NSError *error))block
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+
+    NSMutableURLRequest *request;
+    if (![dictionary isKindOfClass:[NSNull class]]){
+        NSString *keyValueString = [self processKeyValueString:dictionary withRoot:@""];
+        if ([method isEqualToString:@"POST"]) {
+            request = [NSMutableURLRequest requestWithURL:url];
+            [request setHTTPBody:[keyValueString dataUsingEncoding:NSUTF8StringEncoding]];
+        } else {
+            NSString *sep = url.query == nil ? @"?" : @"&" ;
+            NSString *absoluteURLString = [url absoluteString];
+            NSString *absoluteURLWithParams = [absoluteURLString stringByAppendingString: sep];
+            absoluteURLWithParams = [absoluteURLWithParams stringByAppendingString: keyValueString];
+            url = [NSURL URLWithString:absoluteURLWithParams];
+            request = [NSMutableURLRequest requestWithURL:url];
+        }
+    } else {
+      request = [NSMutableURLRequest requestWithURL:url];
+    }
+
 
     [request setHTTPMethod:method];
 
@@ -45,14 +64,6 @@
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 
     [request setValue:authValue forHTTPHeaderField:@"Authorization"];
-
-    if (![dictionary isKindOfClass:[NSNull class]]){
-
-        NSString *keyValueString = [self processKeyValueString:dictionary withRoot:@""];
-        NSData *body = [keyValueString dataUsingEncoding:NSUTF8StringEncoding];
-
-        [request setHTTPBody:body];
-    }
 
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
@@ -81,9 +92,14 @@
     for (NSString *key in dictionary.allKeys){
         if ([[dictionary objectForKey:key] isKindOfClass:[NSDictionary class]]){
             keyValueString = [keyValueString stringByAppendingString:[self processKeyValueString:[dictionary objectForKey:key] withRoot:key]];
-        }
-        else if (![[dictionary objectForKey:key] isKindOfClass:[NSNumber class]]){
-            NSString *value = [dictionary objectForKey:key];
+        } else {
+            NSString *value;
+            if ([[dictionary objectForKey:key] isKindOfClass:[NSNumber class]]){
+                NSNumber *nr = [dictionary objectForKey:key];
+                value = nr.stringValue;
+            } else {
+                value = [dictionary objectForKey:key];
+            }
             NSString *fragment = [NSString stringWithFormat:@"%@=%@", key, [self urlencode:value]];
 
             if (![root isEqualToString:@""]){

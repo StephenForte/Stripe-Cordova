@@ -2,29 +2,27 @@ var exec = require('cordova/exec');
 var channel = require('cordova/channel');
 
 function Charges(){
-  var me = this;
-
-  this.processRequest = function(args, cb){
-      exec(cb,null, "Stripe", "process", args);
+  this.processRequest = function(args, cb, error){
+      exec(cb,error, "Stripe", "process", args);
   };
 }
 
-Charges.prototype.create = function(arg, successCallback){
-    this.processRequest(["POST","charges", arg], successCallback);
+Charges.prototype.create = function(arg, successCallback, errorCallback){
+    this.processRequest(["POST","charges", arg], successCallback, errorCallback);
 }
 
-Charges.prototype.retrieve = function(id, successCallback){
-    this.processRequest(["GET","charges/" + id, null], successCallback);
+Charges.prototype.retrieve = function(id, successCallback, errorCallback){
+    this.processRequest(["GET","charges/" + id, null], successCallback, errorCallback);
 }
 
-Charges.prototype.update = function(id, arg, successCallback){
-    this.processRequest(["POST","charges/" + id, arg], successCallback);
+Charges.prototype.update = function(id, arg, successCallback, errorCallback){
+    this.processRequest(["POST","charges/" + id, arg], successCallback, errorCallback);
 }
 
-Charges.prototype.list = function(successCallback){
-  this.processRequest(["GET","charges", null], successCallback);
+Charges.prototype.list = function(successCallback, errorCallback){
+  this.processRequest(["GET","charges", null], successCallback, errorCallback);
 }
 
-if (typeof module != 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = new Charges();
 }

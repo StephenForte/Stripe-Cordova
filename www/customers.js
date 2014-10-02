@@ -2,45 +2,44 @@ var exec = require('cordova/exec');
 var channel = require('cordova/channel');
 
 function Customers(){
-  var me = this;
-  this.processRequest = function(args, cb){
-      exec(cb,null, "Stripe", "process", args);
+  this.processRequest = function(args, cb, error){
+      exec(cb,error, "Stripe", "process", args);
   };
 }
 
-Customers.prototype.create = function(arg, successCallback){
-    this.processRequest(["POST","customers", arg], successCallback);
+Customers.prototype.create = function(arg, successCallback, errorCallback){
+    this.processRequest(["POST","customers", arg], successCallback, errorCallback);
 }
 
-Customers.prototype.retrieve = function(id, successCallback){
-    this.processRequest(["GET","customers/" + id, null], successCallback);
+Customers.prototype.retrieve = function(id, successCallback, errorCallback){
+    this.processRequest(["GET","customers/" + id, null], successCallback, errorCallback);
 }
 
-Customers.prototype.list = function(arg, successCallback){
+Customers.prototype.list = function(arg, successCallback, errorCallback){
     if (typeof(arg) !== "function"){
-      this.processRequest(["GET","customers", arg], successCallback);
+      this.processRequest(["GET","customers", arg], successCallback, errorCallback);
     }
     else{
-      this.processRequest(["GET","customers", null], successCallback);
+      this.processRequest(["GET","customers", null], successCallback, errorCallback);
     }
 }
 
-Customers.prototype.remove = function(id, successCallback){
-    this.processRequest(["DELETE", "customers/" + id, null], successCallback);
+Customers.prototype.remove = function(id, successCallback, errorCallback){
+    this.processRequest(["DELETE", "customers/" + id, null], successCallback, errorCallback);
 }
 
-Customers.prototype.createCard = function(cusId, arg, successCallback){
-    this.processRequest(["POST", "customers/" + cusId + "/cards", arg], successCallback);
+Customers.prototype.createCard = function(cusId, arg, successCallback, errorCallback){
+    this.processRequest(["POST", "customers/" + cusId + "/cards", arg], successCallback, errorCallback);
 }
 
-Customers.prototype.retrieveCard = function(cusId, cardId, successCallback){
-    this.processRequest(["GET", "customers/" + cusId + "/cards/" + cardId, null], successCallback);
+Customers.prototype.retrieveCard = function(cusId, cardId, successCallback, errorCallback){
+    this.processRequest(["GET", "customers/" + cusId + "/cards/" + cardId, null], successCallback, errorCallback);
 }
 
-Customers.prototype.removeCard = function(cusId, cardId, successCallback){
-    this.processRequest(["DELETE","customers/" + cusId + "/cards/" + cardId, null], successCallback);
+Customers.prototype.removeCard = function(cusId, cardId, successCallback, errorCallback){
+    this.processRequest(["DELETE","customers/" + cusId + "/cards/" + cardId, null], successCallback, errorCallback);
 }
 
-if (typeof module != 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = new Customers();
 }
